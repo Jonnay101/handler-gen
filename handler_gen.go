@@ -18,6 +18,7 @@ func EchoHandleFuncGenerator(dFn DomainLogicHandler, i interface{}) echo.Handler
 				errors.New("Binding interface has a nil value"),
 			)
 		}
+
 		if err := c.Bind(i); err != nil {
 			return echo.NewHTTPError(
 				http.StatusBadRequest,
