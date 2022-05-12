@@ -83,17 +83,15 @@ func TestEchoHandleFuncGenerator(t *testing.T) {
 			400,
 		},
 		{
-			"Error: cannot bind to nil value interface",
+			"Error: domain logic func has nil value - potential panic",
 			req{
-				method: http.MethodPost,
-				target: "/",
-				body:   nil,
-				// id param is missing from request
+				method:  http.MethodPost,
+				target:  "/",
+				body:    nil,
+				paramID: testUUID.String(),
 			},
 			args{
-				func(i interface{}) (responseData interface{}, statusCode int, err error) {
-					return
-				},
+				nil,
 				&testObj{}, // nil value interface
 			},
 			true,
