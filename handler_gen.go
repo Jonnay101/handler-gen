@@ -15,7 +15,7 @@ func EchoHandleFuncGenerator(dFn DomainLogicHandler, i interface{}) echo.Handler
 		if i == nil {
 			return echo.NewHTTPError(
 				http.StatusBadRequest,
-				errors.New("Binding interface has a nil value"),
+				errors.New("Provided binding interface has nil value"),
 			)
 		}
 
@@ -23,6 +23,13 @@ func EchoHandleFuncGenerator(dFn DomainLogicHandler, i interface{}) echo.Handler
 			return echo.NewHTTPError(
 				http.StatusBadRequest,
 				fmt.Errorf("Error while binding request >>>> \n%w\n", err),
+			)
+		}
+
+		if dFn == nil {
+			return echo.NewHTTPError(
+				http.StatusBadRequest,
+				errors.New("Provided DomainLogicHandler has nil value"),
 			)
 		}
 
