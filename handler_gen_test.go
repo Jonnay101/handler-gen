@@ -51,15 +51,50 @@ func TestEchoHandleFuncGenerator(t *testing.T) {
 		{
 			"Error: cannot bind to nil value interface",
 			req{
-				method: http.MethodPost,
-				target: "/",
-				body:   nil,
+				method:  http.MethodPost,
+				target:  "/",
+				body:    nil,
+				paramID: testUUID.String(),
 			},
 			args{
 				func(i interface{}) (responseData interface{}, statusCode int, err error) {
 					return
 				},
 				nil, // nil value interface
+			},
+			true,
+			400,
+		},
+		{
+			"Error: cannot bind - uuid param is invalid",
+			req{
+				method: http.MethodPost,
+				target: "/",
+				body:   nil,
+				// id param is missing from request
+			},
+			args{
+				func(i interface{}) (responseData interface{}, statusCode int, err error) {
+					return
+				},
+				&testObj{}, // nil value interface
+			},
+			true,
+			400,
+		},
+		{
+			"Error: cannot bind to nil value interface",
+			req{
+				method: http.MethodPost,
+				target: "/",
+				body:   nil,
+				// id param is missing from request
+			},
+			args{
+				func(i interface{}) (responseData interface{}, statusCode int, err error) {
+					return
+				},
+				&testObj{}, // nil value interface
 			},
 			true,
 			400,
